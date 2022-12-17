@@ -1,0 +1,36 @@
+.input[type='text']{
+    padding:6px 35px 0 15px;
+}
+
+.messages{
+    display: 'flex';
+    flex-direction: column;
+    overflow-y:scroll;
+    scrollbar-width:none;
+}
+
+.notification-badge-container {
+  position: relative;
+  margin-right: 10px;
+}
+
+.notification-badge {
+  background-color: red;
+  font-size: 12px;
+  color: white;
+  text-align: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  position: absolute;
+  top: 0px;
+  left: 20px;
+}
+
+.h1_loading{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  font-size:xx-large;
+}
