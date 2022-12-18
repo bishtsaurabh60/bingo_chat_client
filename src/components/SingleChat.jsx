@@ -13,7 +13,7 @@ import  io  from 'socket.io-client';
 import animationData   from "../animations/typing.json";
 import Lottie from "react-lottie";
 
-const ENDPOINT = "https://bingo-chat-api.onrender.com"; // replace the url with "https://YOUR_DEPLOYED_APPLICATION_URL" then run "npm run build" to create a production build in a production mode
+const ENDPOINT = process.env.REACT_API_URL || "http://localhost:5000"; // replace the url with "https://YOUR_DEPLOYED_APPLICATION_URL" then run "npm run build" to create a production build in a production mode
 
 let socket, selectedChatCompare;
 
