@@ -50,6 +50,7 @@ const SideDrawer = () => {
     searchResults,
     loading,
     optimizedHandleSearch,
+    API_URL
   } = ChatState();
   const navigate = useNavigate();
   const toast = useToast();
@@ -72,7 +73,7 @@ const SideDrawer = () => {
         },
       };
 
-      const { data } = await axios.post("/api/chat", { userId }, config);
+      const { data } = await axios.post(`${API_URL}/api/chat`, { userId }, config);
 
       if (!chats.find((c) => c._id === data._id))
         // If the chat already inside 'chat' state, append it

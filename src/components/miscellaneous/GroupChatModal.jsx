@@ -36,6 +36,7 @@ const GroupChatModal = ({ children }) => {
     setSearchResults,
     loading,
     optimizedHandleSearch,
+    API_URL
   } = ChatState();
 
   const handleSubmit = async () => {
@@ -59,7 +60,7 @@ const GroupChatModal = ({ children }) => {
       };
 
       const { data } = await axios.post(
-        `api/chat/group`,
+        `${API_URL}/api/chat/group`,
         {
           name: groupName,
           users: JSON.stringify(selectedUsers.map((u) => u._id)),

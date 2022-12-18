@@ -12,7 +12,7 @@ const GroupChatModal = React.lazy(() =>
 
 const MyChats = ({ fetchAgain }) => {
   const [loggedUser, setLoggedUser] = useState();
-  const { selectedChat, setSelectedChat, user, chats, setChats } = ChatState();
+  const { selectedChat, setSelectedChat, user, chats, setChats, API_URL } = ChatState();
   const toast = useToast();
   const { onClose } = useDisclosure();
 
@@ -24,7 +24,7 @@ const MyChats = ({ fetchAgain }) => {
         },
       };
 
-      const { data } = await axios.get("/api/chat", config);
+      const { data } = await axios.get(`${API_URL}/api/chat`, config);
       setChats(data);
       onClose(); //close the side drawer
     } catch (err) {

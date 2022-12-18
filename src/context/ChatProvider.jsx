@@ -17,6 +17,8 @@ const ChatProvider = ({ children }) => {
   const navigate = useNavigate();
   const toast = useToast();
 
+  const API_URL = process.env.REACT_API_URL ?? "http://localhost:5000";
+
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
      setUser(userInfo);
@@ -34,7 +36,10 @@ const ChatProvider = ({ children }) => {
           Authorization: `Bearer ${user.token}`,
         },
       };
-      const { data } = await axios.get(`/api/user?search=${search}`, config);
+      const { data } = await axios.get(
+        `${API_URL}/api/user?search=${search}`,
+        config
+      );
 
       const filteredData = data.filter((value) => {
         return search === ""
@@ -73,6 +78,7 @@ const ChatProvider = ({ children }) => {
         loading,
         setLoading,
         optimizedHandleSearch,
+        API_URL
       }}
     >
       {children}

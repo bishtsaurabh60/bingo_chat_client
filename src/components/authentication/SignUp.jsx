@@ -21,6 +21,7 @@ import {userReducer} from "../../states/reducers";
 import ACTION from "../../states/actions"
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { ChatState } from "../../context/ChatProvider";
 
 const SignUp = () => {
 
@@ -38,6 +39,7 @@ const SignUp = () => {
 
   const toast = useToast();
   const navigate = useNavigate();
+  const {API_URL } = ChatState();
 
   const handleClick = () => {
     dispatch({ type: ACTION.setShow });
@@ -120,7 +122,7 @@ const SignUp = () => {
         password: userDetails.password,
         pic: userDetails.pic
       }
-      const { data } = await axios.post("/api/user", userData, config);
+      const { data } = await axios.post(`${API_URL}/api/user`, userData, config);
       toast({
         title: "Registration Successful!",
         status: "success",

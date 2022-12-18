@@ -26,7 +26,7 @@ const Login = () => {
 
   const toast = useToast();
   const navigate = useNavigate();
-  const { setUser,setSelectedChat } = ChatState();
+  const { setUser, setSelectedChat, API_URL } = ChatState();
 
   const handleClick = () => {
     setShow(!show);
@@ -50,7 +50,7 @@ const Login = () => {
         },
       };
       const { data } = await axios.post(
-        "api/user/login",
+        `${API_URL}/api/user/login`,
         { email, password },
         config
       );
