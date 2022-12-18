@@ -17,7 +17,7 @@ const ChatProvider = ({ children }) => {
   const navigate = useNavigate();
   const toast = useToast();
 
-  const API_URL = process.env.REACT_API_URL ?? "http://localhost:5000";
+  const API_URL = process.env.REACT_API_URL || "http://localhost:5000";
 
   useEffect(() => {
     const userInfo = JSON.parse(localStorage.getItem("userInfo"));
