@@ -2,7 +2,7 @@
   "name": "bingo-chat",
   "version": "0.1.0",
   "private": true,
-  "proxy":"https://localhost:5000",
+  "proxy":"http://localhost:5000",
   "dependencies": {
     "@chakra-ui/react": "^2.3.5",
     "@emotion/react": "^11.10.4",
