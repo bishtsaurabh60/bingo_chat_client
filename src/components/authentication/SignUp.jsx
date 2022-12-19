@@ -63,7 +63,6 @@ const SignUp = () => {
       data.append("cloud_name", 'saurabhBisht17');
       axios.post("https://api.cloudinary.com/v1_1/saurabhBisht17/image/upload/", data)
         .then(({ data }) => {
-          // console.log(data.url?.toString());
           const url = new URL(data?.url);
           const resizeImg = "q_auto,f_auto,w_400,h_500,c_thumb,g_faces,z_0.75";
           const pathName = url.pathname;

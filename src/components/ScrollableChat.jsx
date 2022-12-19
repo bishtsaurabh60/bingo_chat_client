@@ -1,12 +1,14 @@
 import { Avatar, Box, Tooltip } from "@chakra-ui/react"
 import { isLastMessage, isSameSender, isSameSenderMargin, isSameUser } from '../config/ChatLogics';
 import { ChatState } from '../context/ChatProvider';
+
 import { useEffect, useRef } from 'react';
-const ScrollableChat = ({ messages,isTyping }) => {
+const ScrollableChat = ({ messages, isTyping }) => {
+
   const { user } = ChatState();
   const scrollRef = useRef();
   useEffect(() => {
-    scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    scrollRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   },[messages,isTyping]);
   return (
     <>
@@ -28,7 +30,7 @@ const ScrollableChat = ({ messages,isTyping }) => {
                     cursor="pointer"
                     name={m.sender.name}
                     src={m.sender.pic}
-                    loading='lazy'
+                    loading="lazy"
                   />
                 </Tooltip>
               )}

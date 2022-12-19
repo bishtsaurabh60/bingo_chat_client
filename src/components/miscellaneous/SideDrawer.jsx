@@ -113,13 +113,13 @@ const SideDrawer = () => {
           </Button>
         </Tooltip>
         <Text
-          fontSize="3xl"
+          fontSize={{ base: "1rem", sm: "3xl" }}
           fontFamily="Poppins"
           fontWeight="900"
           bg="linear-gradient(50deg, #08AEEA 0%, #2AF598 100%)"
           color="transparent"
           sx={{ WebkitBackgroundClip: "text" }}
-          letterSpacing="5px"
+          letterSpacing={{base:'4px', sm:'5px'}}
         >
           BINGO-CHAT
         </Text>
@@ -139,12 +139,12 @@ const SideDrawer = () => {
             </MenuButton>
             <MenuList p={2}>
               {!notification.length ? "No new messages" : ""}
-              {notification.map((notify) => (
+              {notification.map((notify, i) => (
                 <MenuItem
-                  key={notify._id}
+                  key={notify._id + i}
                   onClick={() => {
                     setSelectedChat(notify.chat);
-                    setNotification(notification.filter((n) => n !== notify));
+                    setNotification(notification?.filter((n) => n !== notify));
                   }}
                 >
                   {notify.chat.isGroupChat

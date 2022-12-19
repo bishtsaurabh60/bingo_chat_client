@@ -10,7 +10,7 @@ const ChatPage = () => {
   const { user } = ChatState();
   const [fetchAgain,setFetchAgain] = useState(false);
   return (
-    <Box w= "100%" m="5px" >
+    <Box w= "100%" h='100%' m='5px' mb={0}>
       {user && <SideDrawer />}
       <Box
         display="flex"

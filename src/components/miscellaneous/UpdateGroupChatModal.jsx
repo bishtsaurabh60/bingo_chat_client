@@ -99,7 +99,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
     setGroupChatName("");
   };
 
-  const handleRemove = async (user1) => {
+  const handleRemove = async (user1,endpoint) => {
     if (selectedChat.groupAdmin._id !== user._id && user1._id !== user._id) {
       return toast({
         title: "Only admins can remove someone!",
@@ -116,7 +116,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
       };
 
       const { data } = await axios.put(
-        `${API_URL}/api/chat/groupremove`,
+        `${API_URL}/api/chat/${endpoint}`,
         {
           chatId: selectedChat._id,
           userId: user1._id,
@@ -179,7 +179,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
     setGroupChatName("");
   };
   return (
-    <>
+    <Box>
       <IconButton
         display={{ base: "flex" }}
         icon={<FaEye />}
@@ -197,6 +197,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             fontFamily="Quicksand"
             display="flex"
             justifyContent="center"
+            alignItems='center'
             textTransform="capitalize"
           >
             {selectedChat.chatName}
@@ -210,22 +211,23 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
             gap={3}
           >
             <Box>
-              {selectedChat.users.map((u) => (
+              {selectedChat.users.map((u,i) => (
                 <Suspense
-                  key={u._id}
+                  key={u._id+i}
                   fallback={<h1 className="h1_loading">Loading...</h1>}
                 >
-                  <UserBadge user={u} handleFunction={() => handleRemove(u)} />
+                  <UserBadge user={u} handleFunction={() => handleRemove(u,'groupremove')} />
                 </Suspense>
               ))}
             </Box>
-            <FormControl>
+            <FormControl display='flex'>
               <Input
                 type="text"
                 placeholder="Group Name"
                 mb={3}
                 value={groupChatName}
                 autoComplete="off"
+                width='80%'
                 onChange={(e) => {
                   setGroupChatName(e.target.value);
                 }}
@@ -233,7 +235,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
               <Button
                 variant="solid"
                 colorScheme="teal"
-                ml={1}
+                ml={1.5}
                 isLoading={renameLoading}
                 onClick={handleRename}
               >
@@ -265,13 +267,13 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="red" mr={3} onClick={() => handleRemove(user)}>
+            <Button colorScheme="red" mr={3} onClick={() => handleRemove(user,'leave')}>
               Leave Group
             </Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
-    </>
+    </Box>
   );
 };
 export default UpdateGroupChatModal;

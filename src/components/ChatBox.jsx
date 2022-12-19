@@ -1,7 +1,6 @@
 import { Box } from "@chakra-ui/react";
 import React, { Suspense } from "react";
 import { ChatState } from "../context/ChatProvider";
-
 const SingleChat = React.lazy(() => import("./SingleChat"));
 
 const ChatBox = ({fetchAgain,setFetchAgain}) => {

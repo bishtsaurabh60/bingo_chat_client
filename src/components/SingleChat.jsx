@@ -59,6 +59,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
       socket.emit("join chat", selectedChat._id);
     } catch (error) {
+      setLoading(false);
       return toast({
         title: "Error Occurred",
         description: "Failed to Load the messages",
@@ -70,41 +71,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     }
   };
 
-  const sendMessage = async (e) => {
-    if ((e.key === "Enter" || e.type === "click") && newMessage) {
-      socket.emit("stop typing", selectedChat._id);
-      try {
-        const config = {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user.token}`,
-          },
-        };
 
-        const { data } = await axios.post(
-          `${API_URL}/api/message/`,
-          {
-            content: newMessage,
-            chatId: selectedChat._id,
-          },
-          config
-        );
-
-        socket.emit("new message", data);
-        setNewMessage("");
-        setMessages([...messages, data]);
-      } catch (error) {
-        toast({
-          title: "Error Occurred",
-          description: "Failed to send the message",
-          status: "error",
-          duration: 5000,
-          isClosable: "true",
-          position: "bottom",
-        });
-      }
-    }
-  };
 
   useEffect(() => {
     socket = io(ENDPOINT);
@@ -126,7 +93,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
     socket.on("message received", (newMessageReceived) => {
       if (
         !selectedChatCompare ||
-        selectedChatCompare._id !== newMessageReceived.chat[0]?._id
+        selectedChatCompare?._id !== newMessageReceived.chat?._id
       ) {
         // give notification
         if (!notification.includes(newMessageReceived)) {
@@ -138,6 +105,43 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
       }
     });
   });
+
+      const sendMessage = async () => {
+        if (newMessage.length>0) {
+          socket.emit("stop typing", selectedChat._id);
+          try {
+            const config = {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${user.token}`,
+              },
+            };
+            setNewMessage("");
+
+            const { data } = await axios.post(
+              `${API_URL}/api/message/`,
+              {
+                content: newMessage,
+                chatId: selectedChat,
+              },
+              config
+            );
+
+            socket.emit("new message", data);
+            setNewMessage("");
+            setMessages([...messages, data]);
+          } catch (error) {
+            toast({
+              title: "Error Occurred",
+              description: "Failed to send the message",
+              status: "error",
+              duration: 5000,
+              isClosable: "true",
+              position: "bottom",
+            });
+          }
+        }
+      };
 
   const typingHeader = (e) => {
     setNewMessage(e.target.value);
@@ -248,7 +252,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </Box>
             )}
 
-            {isTyping ? (
+            {(isTyping)? (
               <Box>
                 <Lottie
                   options={defaultOptions}
@@ -261,7 +265,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             )}
 
             <FormControl
-              onKeyDown={sendMessage}
               isRequired
               display="flex"
               flexDir="column"
@@ -270,6 +273,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             >
               <InputGroup>
                 <Textarea
+                  onKeyDown={(e)=>(e.key==='Enter')?sendMessage():''}
                   className="input"
                   type="text"
                   minH="unset"

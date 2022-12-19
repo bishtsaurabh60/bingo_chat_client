@@ -155,8 +155,8 @@ const GroupChatModal = ({ children }) => {
               maxHeight="15vh"
               overflowY="scroll"
             >
-              {selectedUsers?.map((users) => (
-                <Suspense key={user._id} fallback={<h1>Loading...</h1>}>
+              {selectedUsers?.map((users,i) => (
+                <Suspense key={user._id+i} fallback={<h1>Loading...</h1>}>
                   <UserBadge
                     pic={users.pic}
                     user={users}
@@ -181,8 +181,8 @@ const GroupChatModal = ({ children }) => {
               {loading ? (
                 <Spinner ml="auto" display="flex" />
               ) : (
-                searchResults?.map((user) => (
-                  <Suspense key={user._id} fallback={<h1>Loading...</h1>}>
+                searchResults?.map((user,i) => (
+                  <Suspense key={user._id+i} fallback={<h1>Loading...</h1>}>
                     <UserListItem
                       user={user}
                       handleFunction={() => handleGroup(user)}
