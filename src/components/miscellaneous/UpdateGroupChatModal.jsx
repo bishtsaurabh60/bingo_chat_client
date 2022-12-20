@@ -214,7 +214,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
               {selectedChat.users.map((u,i) => (
                 <Suspense
                   key={u._id+i}
-                  fallback={<h1 className="h1_loading">Loading...</h1>}
+                  fallback={<div className="h1_loading"></div>}
                 >
                   <UserBadge user={u} handleFunction={() => handleRemove(u,'groupremove')} />
                 </Suspense>
@@ -256,7 +256,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
               <Spinner ml="auto" display="flex" />
             ) : (
               searchResults?.slice(0, 4).map((user) => (
-                <Suspense key={user._id} fallback={<h1>Loading...</h1>}>
+                <Suspense key={user._id} fallback={<div></div>}>
                   <UserListItem
                     user={user}
                     handleFunction={() => handleAddUser(user)}

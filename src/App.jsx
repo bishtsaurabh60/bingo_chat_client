@@ -2,6 +2,7 @@ import './App.css';
 import {Routes, Route } from 'react-router-dom';
 import React, { Suspense } from 'react';
 import { Box } from '@chakra-ui/react';
+import Error from './components/Error';
 
 const ChatPage = React.lazy(()=>import('./pages/ChatPage.jsx'));
 const HomePage = React.lazy(() => import("./pages/HomePage"));
@@ -27,6 +28,7 @@ function App() {
             </Suspense>
           }
         />
+        <Route path="*" element={<Error />} />
       </Routes>
     </Box>
   );
