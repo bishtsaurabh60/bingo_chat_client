@@ -5,6 +5,7 @@ import axios from "axios";
 import { FaPlus } from "react-icons/fa";
 import ChatLoading from "./ChatLoading";
 import { getSender, getSenderPic } from "../config/ChatLogics";
+import LatestMessage from "./LatestMessage";
 
 const GroupChatModal = React.lazy(() =>
   import("./miscellaneous/GroupChatModal")
@@ -70,7 +71,7 @@ const MyChats = ({ fetchAgain }) => {
         fontWeight="bold"
       >
         Chats
-        <Suspense fallback={<h1>Loading...</h1>}>
+        <Suspense fallback={<div></div>}>
           <GroupChatModal>
             <Button
               display="flex"
@@ -91,7 +92,7 @@ const MyChats = ({ fetchAgain }) => {
         rounded={10}
         overflowY="hidden"
       >
-        {chats ? (
+        {chats.length ? (
           <Stack overflowY="scroll">
             {chats.map((chat) => (
               <Box
@@ -125,25 +126,17 @@ const MyChats = ({ fetchAgain }) => {
                     src={
                       !chat.isGroupChat ? getSenderPic(user, chat.users) : ""
                     }
-                    loading='lazy'
+                    loading="lazy"
                   />
 
                   <Text textTransform="capitalize">
-                    {!chat.isGroupChat && loggedUser
+                    {!chat.isGroupChat
                       ? getSender(loggedUser, chat.users)
                       : chat.chatName}
                   </Text>
                 </Box>
 
-                {chat.latestMessage ? (
-                  <Text fontSize="xs" ml={10}>
-                    {chat.latestMessage.content.length > 50
-                      ? chat.latestMessage.content.substring(0, 51) + "..."
-                      : chat.latestMessage.content}
-                  </Text>
-                ) : (
-                  <></>
-                )}
+                <LatestMessage loggedUser={loggedUser} chat={chat} />
               </Box>
             ))}
           </Stack>

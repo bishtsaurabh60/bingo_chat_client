@@ -10,12 +10,13 @@ import {
   Button,
   IconButton,
   Image,
-  Text,
+  Text, 
 } from "@chakra-ui/react";
-import { FaEye} from "react-icons/fa";
+import { FaEye } from "react-icons/fa";
 
-const ProfileModal = ({user,children}) => {
-    const {isOpen, onOpen, onClose} = useDisclosure();
+const ProfileModal = ({user,children,fetchAgain,setFetchAgain}) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
     return (
       <>
         {children ? (

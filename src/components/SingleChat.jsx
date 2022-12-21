@@ -122,7 +122,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               `${API_URL}/api/message/`,
               {
                 content: newMessage,
-                chatId: selectedChat,
+                chatId: selectedChat._id,
               },
               config
             );
@@ -131,7 +131,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             setNewMessage("");
             setMessages([...messages, data]);
           } catch (error) {
-            toast({
+            return toast({
               title: "Error Occurred",
               description: "Failed to send the message",
               status: "error",
@@ -188,32 +188,37 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               _hover={{ bg: "#f4f4f4", color: "#387002" }}
             />
 
-            {!selectedChat.isGroupChat ? (
-              <>
-                <Box textTransform="capitalize">
-                  <Avatar
-                    mr={2}
-                    size="md"
-                    cursor="pointer"
-                    //name={selectedChat.users[1].name}
-                    name={getSender(user, selectedChat?.users)}
-                    src={getSenderPic(user, selectedChat?.users)}
-                    loading="lazy"
+            {messages &&
+              (!selectedChat.isGroupChat ? (
+                <>
+                  <Box textTransform="capitalize">
+                    <Avatar
+                      mr={2}
+                      size="md"
+                      cursor="pointer"
+                      //name={selectedChat.users[1].name}
+                      name={getSender(user, selectedChat?.users)}
+                      src={getSenderPic(user, selectedChat?.users)}
+                      loading="lazy"
+                    />
+                    {getSender(user, selectedChat?.users)}
+                  </Box>
+                  <ProfileModal
+                    user={getSenderFull(user, selectedChat.users)}
+                    fetchAgain={fetchAgain}
+                    setFetchAgain={setFetchAgain}
                   />
-                  {getSender(user, selectedChat?.users)}
-                </Box>
-                <ProfileModal user={getSenderFull(user, selectedChat.users)} />
-              </>
-            ) : (
-              <>
-                {selectedChat.chatName.toUpperCase()}
-                <UpdateGroupChatModal
-                  fetchAgain={fetchAgain}
-                  setFetchAgain={setFetchAgain}
-                  fetchMessages={fetchMessages}
-                />
-              </>
-            )}
+                </>
+              ) : (
+                <>
+                  {selectedChat.chatName.toUpperCase()}
+                  <UpdateGroupChatModal
+                    fetchAgain={fetchAgain}
+                    setFetchAgain={setFetchAgain}
+                    fetchMessages={fetchMessages}
+                  />
+                </>
+              ))}
           </Box>
 
           {/* messages */}
@@ -252,7 +257,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               </Box>
             )}
 
-            {(isTyping)? (
+            {isTyping ? (
               <Box>
                 <Lottie
                   options={defaultOptions}
@@ -273,7 +278,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
             >
               <InputGroup>
                 <Textarea
-                  onKeyDown={(e)=>(e.key==='Enter')?sendMessage():''}
+                  onKeyDown={(e) => (e.key === "Enter" ? sendMessage() : "")}
                   className="input"
                   type="text"
                   minH="unset"

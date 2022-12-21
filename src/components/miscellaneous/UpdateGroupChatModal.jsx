@@ -124,7 +124,7 @@ const UpdateGroupChatModal = ({ fetchAgain, setFetchAgain, fetchMessages }) => {
         config
       );
 
-      // If logged in user removed himself or left the group
+      // If logged in user removed himself or left the group or other users leaves the group
       user1._id === user._id ? setSelectedChat() : setSelectedChat(data);
       setFetchAgain(!fetchAgain);
       fetchMessages();

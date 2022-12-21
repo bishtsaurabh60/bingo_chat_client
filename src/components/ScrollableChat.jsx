@@ -8,14 +8,14 @@ const ScrollableChat = ({ messages, isTyping }) => {
   const { user } = ChatState();
   const scrollRef = useRef();
   useEffect(() => {
-    scrollRef?.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
+    scrollRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
   },[messages,isTyping]);
   return (
     <>
       <Box>
         {messages &&
           messages.map((m, i) => (
-            <Box ref={scrollRef} style={{ display: "flex" }} key={m._id}>
+            <Box ref={scrollRef} style={{ display: "flex" }} key={m._id+i}>
               {(isSameSender(messages, m, i, user._id) ||
                 isLastMessage(messages, i, user._id)) && (
                 <Tooltip
