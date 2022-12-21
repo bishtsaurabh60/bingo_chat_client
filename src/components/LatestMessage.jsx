@@ -6,10 +6,10 @@ const LatestMessage = ({ loggedUser,chat }) => {
         <Text fontSize="xs" ml={10}>
           <b>
             {!chat.isGroupChat
-              ? (loggedUser._id === chat.latestMessage.sender._id
+              ? (loggedUser?._id === chat.latestMessage.sender?._id
                 ? "You: "
                 : "")
-              : (loggedUser._id === chat.latestMessage.sender._id
+              : (loggedUser?._id === chat.latestMessage.sender?._id
               ? "You: "
               : `${chat.latestMessage.sender.name}: `)}
           </b>

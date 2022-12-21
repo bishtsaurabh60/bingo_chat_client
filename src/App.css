@@ -8,7 +8,7 @@
 }
 
 .app{
-  min-height: 100vh;
+  height: 100vh;
   display:flex;
   background-color: #44c544;
   /* background:url('greenBg.jpg') no-repeat center center fixed;

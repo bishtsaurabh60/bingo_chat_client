@@ -108,7 +108,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 
       const sendMessage = async () => {
         if (newMessage.length>0) {
-          socket.emit("stop typing", selectedChat._id);
+          socket.emit("stop typing", selectedChat?._id);
           try {
             const config = {
               headers: {
@@ -122,7 +122,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               `${API_URL}/api/message/`,
               {
                 content: newMessage,
-                chatId: selectedChat._id,
+                chatId: selectedChat?._id,
               },
               config
             );
