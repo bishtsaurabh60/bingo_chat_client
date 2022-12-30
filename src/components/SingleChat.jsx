@@ -110,13 +110,13 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
         if (newMessage.length>0) {
           socket.emit("stop typing", selectedChat?._id);
           try {
+            setNewMessage("");
             const config = {
               headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${user.token}`,
               },
             };
-            setNewMessage("");
 
             const { data } = await axios.post(
               `${API_URL}/api/message/`,
@@ -188,7 +188,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               _hover={{ bg: "#f4f4f4", color: "#387002" }}
             />
 
-            {messages &&
+            {messages?.length &&
               (!selectedChat.isGroupChat ? (
                 <>
                   <Box textTransform="capitalize">

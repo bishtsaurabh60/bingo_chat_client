@@ -14,12 +14,12 @@ const ScrollableChat = ({ messages, isTyping }) => {
     <>
       <Box>
         {messages &&
-          messages.map((m, i) => (
+          messages?.map((m, i) => (
             <Box ref={scrollRef} style={{ display: "flex" }} key={m._id+i}>
-              {(isSameSender(messages, m, i, user._id) ||
-                isLastMessage(messages, i, user._id)) && (
+              {(isSameSender(messages, m, i, user?._id) ||
+                isLastMessage(messages, i, user?._id)) && (
                 <Tooltip
-                  label={m.sender.name}
+                  label={m.sender?.name}
                   placement="bottom-start"
                   hasArrow
                 >
@@ -28,8 +28,8 @@ const ScrollableChat = ({ messages, isTyping }) => {
                     mr={1}
                     size="sm"
                     cursor="pointer"
-                    name={m.sender.name}
-                    src={m.sender.pic}
+                    name={m.sender?.name}
+                    src={m.sender?.pic}
                     loading="lazy"
                   />
                 </Tooltip>
@@ -37,7 +37,7 @@ const ScrollableChat = ({ messages, isTyping }) => {
               <span
                 style={{
                   background: `${
-                    m.sender._id === user._id
+                    m.sender?._id === user?._id
                       ? "linear-gradient( 150.6deg,  rgba(96,221,142,1) 11.2%, rgba(24,138,141,1) 91.1% )"
                       : "radial-gradient( circle 369px at 10% 20%,rgba(245,76,76,0.80) 0.7%, rgba(243,203,129,0.9) 86.1% )"
                   }`,
@@ -45,7 +45,7 @@ const ScrollableChat = ({ messages, isTyping }) => {
                   borderRadius: "20px",
                   padding: "5px 15px",
                   maxWidth: "50%",
-                  marginLeft: isSameSenderMargin(messages, m, i, user._id),
+                  marginLeft: isSameSenderMargin(messages, m, i, user?._id),
                   marginTop: isSameUser(messages, m, i) ? 3 : 10,
                 }}
               >
