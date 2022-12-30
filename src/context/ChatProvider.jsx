@@ -78,7 +78,7 @@ const ChatProvider = ({ children }) => {
         loading,
         setLoading,
         optimizedHandleSearch,
-        API_URL
+        API_URL,
       }}
     >
       {children}

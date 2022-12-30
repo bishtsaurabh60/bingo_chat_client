@@ -205,8 +205,6 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
                   </Box>
                   <ProfileModal
                     user={getSenderFull(user, selectedChat.users)}
-                    fetchAgain={fetchAgain}
-                    setFetchAgain={setFetchAgain}
                   />
                 </>
               ) : (
