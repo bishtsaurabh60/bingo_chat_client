@@ -188,7 +188,7 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
               _hover={{ bg: "#f4f4f4", color: "#387002" }}
             />
 
-            {messages?.length &&
+            {
               (!selectedChat.isGroupChat ? (
                 <>
                   <Box textTransform="capitalize">
